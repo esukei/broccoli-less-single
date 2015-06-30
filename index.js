@@ -20,20 +20,21 @@ function LessCompiler (sourceTrees, inputFile, outputFile, options) {
 
   CachingWriter.apply(this, [arguments[0]].concat(arguments[3]))
 
-  options = options || {};
-  if (options.sourceMap) {
-    if (typeof options.sourceMap !== 'object') {
-      options.sourceMap = {};
+  var lessOptions = merge({}, options);
+  
+  if (lessOptions.sourceMap) {
+    if (typeof lessOptions.sourceMap !== 'object') {
+      lessOptions.sourceMap = {};
     }
-    if (!options.sourceMap.sourceMapURL) {
-      options.sourceMap.sourceMapURL = outputFile + '.map';
+    if (!lessOptions.sourceMap.sourceMapURL) {
+      lessOptions.sourceMap.sourceMapURL = outputFile + '.map';
     }
   }
 
   this.sourceTrees = sourceTrees
   this.inputFile = inputFile
   this.outputFile = outputFile
-  this.lessOptions = options
+  this.lessOptions = lessOptions
 }
 
 LessCompiler.prototype.updateCache = function (srcDir, destDir) {
